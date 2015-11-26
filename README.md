@@ -1,6 +1,18 @@
 # tc-lib-testrest
+*PHP library to test end-to-end RESTful API services using Gherkin language (Behat)*
 
-*Please consider supporting this project by making a donation to <paypal@tecnick.com>*
+[![Latest Stable Version](https://poser.pugx.org/tecnickcom/tc-lib-testrest/version)](https://packagist.org/packages/tecnickcom/tc-lib-testrest)
+[![Master Build Status](https://secure.travis-ci.org/tecnickcom/tc-lib-testrest.png?branch=master)](https://travis-ci.org/tecnickcom/tc-lib-testrest?branch=master)
+[![Master Coverage Status](https://coveralls.io/repos/tecnickcom/tc-lib-testrest/badge.svg?branch=master&service=github)](https://coveralls.io/github/tecnickcom/tc-lib-testrest?branch=master)
+[![License](https://poser.pugx.org/tecnickcom/tc-lib-testrest/license)](https://packagist.org/packages/tecnickcom/tc-lib-testrest)
+[![Total Downloads](https://poser.pugx.org/tecnickcom/tc-lib-testrest/downloads)](https://packagist.org/packages/tecnickcom/tc-lib-testrest)
+*
+[![Develop Branch](https://img.shields.io/badge/-develop:-gray.svg)](https://github.com/tecnickcom/tc-lib-testrest/tree/develop)
+[![Develop Build Status](https://secure.travis-ci.org/tecnickcom/tc-lib-testrest.png?branch=develop)](https://travis-ci.org/tecnickcom/tc-lib-testrest?branch=develop)
+[![Develop Coverage Status](https://coveralls.io/repos/tecnickcom/tc-lib-testrest/badge.svg?branch=develop&service=github)](https://coveralls.io/github/tecnickcom/tc-lib-testrest?branch=develop)
+
+[![Donate via PayPal](https://img.shields.io/badge/donate-paypal-87ceeb.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&currency_code=GBP&business=paypal@tecnick.com&item_name=donation%20for%20tc-lib-testrest%20project)
+*Please consider supporting this project by making a donation via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&currency_code=GBP&business=paypal@tecnick.com&item_name=donation%20for%20tc-lib-testrest%20project)*
 
 * **category**    Library
 * **package**     \Com\Tecnick\TestRest
@@ -9,18 +21,9 @@
 * **license**     The MIT License (MIT) - see [LICENSE](LICENSE)
 * **link**        https://github.com/tecnickcom/tc-lib-testrest
 
-## Status
-* **MASTER**: [![Build Status](https://secure.travis-ci.org/tecnickcom/tc-lib-testrest.png?branch=master)](https://travis-ci.org/tecnickcom/tc-lib-testrest?branch=master)
-[![Coverage Status](https://coveralls.io/repos/tecnickcom/tc-lib-testrest/badge.svg?branch=master&service=github)](https://coveralls.io/github/tecnickcom/tc-lib-testrest?branch=master)
-* **DEVELOP**: [![Build Status](https://secure.travis-ci.org/tecnickcom/tc-lib-testrest.png?branch=develop)](https://travis-ci.org/tecnickcom/tc-lib-testrest?branch=develop)
-[![Coverage Status](https://coveralls.io/repos/tecnickcom/tc-lib-testrest/badge.svg?branch=develop&service=github)](https://coveralls.io/github/tecnickcom/tc-lib-testrest?branch=develop)
-
-
 ## Description
 
-This library contains utility classes to test end-to-end RESTful services using Gherkin language.
-
-The tests are based on [Behat](http://behat.org).
+PHP library to test end-to-end RESTful API services using Gherkin language ([Behat](http://behat.org))
 
 
 ## Installation
