@@ -1,0 +1,34 @@
+# BeHat configuration file
+#
+# @category   Services
+# @package    Com\Tecnick\TestRest
+# @author     Nicola Asuni <info@tecnick.com>
+# @copyright  2015-2015 MediaSift Ltd. <http://datasift.com>
+# @license    https://opensource.org/licenses/MIT The MIT License (MIT) - see the LICENSE file
+# @link       https://github.com/tecnickcom/tc-lib-testrest
+
+default:
+    filters:
+      tags: "~@ignore"
+    paths:
+        # directory where to find the ".feature" files
+        features: 'features'
+        # directory containing the FeatureContext.php class
+        bootstrap: 'features/bootstrap'
+    context:
+        parameters:
+            # URL of the local testing server, it must match the one defined in the makefile
+            base_url: http://localhost:8081
+            # [OPTIONAL] The following section can be omitted if the project doesn't use any database
+            db:
+                # PDO driver name
+                driver: mysql
+                database: testrest_test
+                host: 127.0.0.1
+                port: 3306
+                username: testrest
+                password: testrest
+                # file containing the database schema SQL
+                sql_schema: '/../../../../test/resources/database/schema.sql'
+                # file containing the database test data
+                sql_data: '/../../../../test/resources/database/data.sql'
