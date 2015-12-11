@@ -135,8 +135,8 @@ clean:
 
 # Clean and download the composer dependencies including dev ones
 build_dev:
-	rm -rf ./vendor/ && ($(COMPOSER) install --no-interaction --ignore-platform-reqs)
+	rm -rf ./vendor/ && ($(COMPOSER) install --no-interaction)
 
 # Update composer dependencies
 update:
-	($(COMPOSER) update --no-interaction --ignore-platform-reqs)
+	($(COMPOSER) update --no-interaction)

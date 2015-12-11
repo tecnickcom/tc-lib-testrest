@@ -39,10 +39,8 @@ before_script:
   - mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS testrest_test;'
   - mysql -uroot -e 'GRANT ALL ON testrest_test.* TO '\''testrest'\''@'\''%'\'' IDENTIFIED BY '\''testrest'\'';'
   - mysql -uroot -e 'FLUSH PRIVILEGES;'
-  - flags=""
-  - if [ `phpenv version-name` == "5.3" ]; then flags="--ignore-platform-reqs"; fi
-  - composer install --no-interaction $flags
-  - composer require satooshi/php-coveralls:dev-master --no-interaction $flags
+  - composer install --no-interaction
+  - composer require satooshi/php-coveralls:dev-master --no-interaction
 
 script:
   - make qa_all
