@@ -40,7 +40,7 @@ before_script:
   - mysql -uroot -e 'GRANT ALL ON testrest_test.* TO '\''testrest'\''@'\''%'\'' IDENTIFIED BY '\''testrest'\'';'
   - mysql -uroot -e 'FLUSH PRIVILEGES;'
   - composer install --no-interaction
-  - composer require satooshi/php-coveralls:dev-master --no-interaction
+  - if [ "$TRAVIS_PHP_VERSION" = "5.6" ]; then composer require satooshi/php-coveralls:dev-master --no-interaction; fi
 
 script:
   - make qa_all
