@@ -1,4 +1,4 @@
-Feature: Testing the example entry point
+Feature: Testing the example API entry point
 
 Scenario: Simple test that show exact-match features
     And that "name" is "beautiful"

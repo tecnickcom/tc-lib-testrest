@@ -289,7 +289,7 @@ class InputContext extends \Com\Tecnick\TestRest\BaseContext
             if (!empty($body) && is_array($body)) {
                 $url .= $this->getUrlQuerySeparator($url).http_build_query($body, '', '&');
             }
-            $this->response = $this->client->$method($url)->send();
+            $this->response = $this->client->$method($url, $headers)->send();
         } elseif (in_array($method, array('post', 'put', 'patch'))) {
             $this->response = $this->client->$method($this->requestUrl, $headers, $body)->send();
         }

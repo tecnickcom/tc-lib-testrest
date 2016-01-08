@@ -1,4 +1,4 @@
-Feature: Testing if the API is responding
+Feature: Testing API features
 
 Scenario: Test JSON data
     Given that the request body is valid JSON
@@ -15,7 +15,8 @@ Scenario: Test JSON data
     And the "success" property equals "true"
 
 Scenario: Simple test that show most options
-    Given that header property "Test" is "12345"
+    Given that header property "Authorization" is "alpha:7f8b15379ee46b334ed75d6bbc1b6da3"
+    And that header property "Test" is "12345"
     And that "property[0].name" is "12345"
     # NOTE: The following loads data from a JSON file and converts it into property-value items
     Given that the properties in the "JSON"
@@ -41,6 +42,7 @@ Scenario: Simple test that show most options
     And the "success" property equals "true"
     And the value of the "datetime" property matches the pattern "/^[0-9]{4}[\-][0-9]{2}[\-][0-9]{2} [0-9]{2}[:][0-9]{2}[:][0-9]{2}$/"
     And the response body matches the pattern "/[\"]ga[m]{2}a[\"]/"
+    And the "header.Authorization" property equals "alpha:7f8b15379ee46b334ed75d6bbc1b6da3"
     And the "data" property is an "object" with "10" items
     And the "data.property" property is an "array" with "1" item
     And the "data.property[0].name" property equals "12345"
@@ -119,4 +121,3 @@ Scenario: Test input properties in tabular form
     And the "data.name" property equals "Nicola"
     And the "data.email" property equals "name@example.com"
     And the response has a "raw" property
-

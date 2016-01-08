@@ -5,7 +5,7 @@
  * @category    Library
  * @package     Com\Tecnick\TestRest
  * @author      Nicola Asuni <info@tecnick.com>
- * @copyright   2015-2015 MediaSift Ltd. <http://datasift.com>
+ * @copyright   2015-2015 MediaSift Ltd. <http://datasift.com>, 2016 Nicola Asuni Tecnick.com LTD
  * @license     https://opensource.org/licenses/MIT The MIT License (MIT) - see the LICENSE file
  * @link        https://github.com/tecnickcom/tc-lib-testrest
  */
@@ -15,6 +15,7 @@ $data = json_encode(
         'success'   => true,
         'timestamp' => time(),
         'datetime'  => gmdate('Y-m-d H:i:s'),
+        'header'    => getallheaders(),
         'data'      => $_REQUEST,
         'raw'       => file_get_contents('php://input') // read raw data from the request body
     )
