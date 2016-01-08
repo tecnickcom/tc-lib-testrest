@@ -1,4 +1,5 @@
 <?php
+// @codingStandardsIgnoreFile
 /**
  * Test Server
  *
@@ -10,12 +11,30 @@
  * @link        https://github.com/tecnickcom/tc-lib-testrest
  */
 
+/**
+ * Fetch all HTTP request headers.
+ * This has been added as "getallheaders" do not work with php 5.4.
+ *
+ * @return array
+ */
+function getAllHttpHeaders()
+{
+    $headers = '';
+    foreach ($_SERVER as $name => $value) {
+        if (strpos($name, 'HTTP_') === 0) {
+            $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+        }
+    }
+    return $headers;
+}
+
+// data to be returned
 $data = json_encode(
     array(
         'success'   => true,
         'timestamp' => time(),
         'datetime'  => gmdate('Y-m-d H:i:s'),
-        'header'    => getallheaders(),
+        'header'    => getAllHttpHeaders(),
         'data'      => $_REQUEST,
         'raw'       => file_get_contents('php://input') // read raw data from the request body
     )
