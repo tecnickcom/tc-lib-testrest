@@ -34,6 +34,7 @@ Scenario: Simple test that show most options
     Then echo last response
     Then wait "1" second
     Then the response status code should be "200"
+    And the response body is not empty
     And the "Connection" header property equals "close"
     And the value of the "Connection" header property matches the pattern "/^[a-z]+$/"
     And the response is JSON
@@ -80,6 +81,7 @@ Scenario Outline: Test data table mode
     Given that "property.name" is "<name>"
     When I make a "GET" request to "/"
     Then the response status code should be "<code>"
+    And the response body is not empty
     And the response is JSON
     And the "success" property equals "<success>"
     And the "data.property.name" property equals "<name>"
@@ -100,6 +102,7 @@ Scenario: Test Raw data
     """
     When I make a "POST" request to "/"
     Then the response status code should be "200"
+    And the response body is not empty
     And the "success" property equals "true"
     And the response has a "raw" property
 
@@ -108,6 +111,7 @@ Scenario: Test RAW input file data
     Given that the request body is imported from the file "test/resources/data.json"
     When I make a "POST" request to "/"
     Then the response status code should be "200"
+    And the response body is not empty
     And the "success" property equals "true"
     And the response has a "raw" property
 
@@ -117,7 +121,13 @@ Scenario: Test input properties in tabular form
         | email       | name@example.com |
     When I make a "GET" request to "/"
     Then the response status code should be "200"
+    And the response body is not empty
     And the "success" property equals "true"
     And the "data.name" property equals "Nicola"
     And the "data.email" property equals "name@example.com"
     And the response has a "raw" property
+
+Scenario: Test empty response from server
+    When I make a "GET" request to "/empty.php"
+    Then the response status code should be "204"
+    And the response body is empty
