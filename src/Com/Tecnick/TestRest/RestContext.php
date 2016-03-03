@@ -5,7 +5,7 @@
  * @category    Library
  * @package     Com\Tecnick\TestRest
  * @author      Nicola Asuni <info@tecnick.com>
- * @copyright   2015-2015 MediaSift Ltd. <http://datasift.com>
+ * @copyright   2015 MediaSift Ltd. <http://datasift.com>, 2016 Tecnick.com LTD <http://www.tecnick.com>
  * @license     https://opensource.org/licenses/MIT The MIT License (MIT) - see the LICENSE file
  * @link        https://github.com/tecnickcom/tc-lib-testrest
  */
@@ -71,6 +71,25 @@ class RestContext extends \Com\Tecnick\TestRest\HeaderContext
     }
 
     /**
+     * Check if the response body is empty or not.
+     *
+     * Examples:
+     *     Then the response body is empty
+     *     Then the response body is not empty
+     *
+     * @param string $mode If "not" check if the response is NOT empty, otherwise cheks if it is empty
+     *
+     * @Then /^the response body is (not |)empty$/
+     */
+    public function theResponseBodyIsEmpty($mode)
+    {
+        $length = strlen(trim($this->response->getBody(true)));
+        if (($length == 0) xor ($mode != 'not ')) {
+            throw new Exception('The response body is expected to be '.$mode.'empty!');
+        }
+    }
+
+    /**
      * Check if the response body content correspond to the specified string.
      *
      * Examples:
@@ -88,7 +107,7 @@ class RestContext extends \Com\Tecnick\TestRest\HeaderContext
         $data = trim($this->response->getBody(true));
         $value = trim((string)$value);
         if ($value !== $data) {
-            throw new Exception('Response body value mismatch! (given: '.$value.', match: '.$data.')');
+            throw new Exception('Response body value mismatch! (given: \''.$value.'\', match: \''.$data.'\')');
         }
     }
 
