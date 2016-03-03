@@ -24,6 +24,7 @@ matrix:
 
 services:
   - mysql
+  - memcached
 
 before_install:
   - composer self-update
