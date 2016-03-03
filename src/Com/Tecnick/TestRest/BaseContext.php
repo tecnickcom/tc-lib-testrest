@@ -5,7 +5,7 @@
  * @category    Library
  * @package     Com\Tecnick\TestRest
  * @author      Nicola Asuni <info@tecnick.com>
- * @copyright   2015-2015 MediaSift Ltd. <http://datasift.com>
+ * @copyright   2015 MediaSift Ltd. <http://datasift.com>, 2016 Tecnick.com LTD <http://www.tecnick.com>
  * @license     https://opensource.org/licenses/MIT The MIT License (MIT) - see the LICENSE file
  * @link        https://github.com/tecnickcom/tc-lib-testrest
  */
@@ -21,7 +21,7 @@ use \Behat\Behat\Context\BehatContext;
  * @category    Library
  * @package     Com\Tecnick\TestRest
  * @author      Nicola Asuni <info@tecnick.com>
- * @copyright   2015-2015 MediaSift Ltd. <http://datasift.com>
+ * @copyright   2015 MediaSift Ltd. <http://datasift.com>, 2016 Tecnick.com LTD <http://www.tecnick.com>
  * @license     https://opensource.org/licenses/MIT The MIT License (MIT) - see the LICENSE file
  * @link        https://github.com/tecnickcom/tc-lib-testrest
  */
@@ -106,18 +106,44 @@ class BaseContext extends BehatContext
     }
 
     /**
-     * Setup the database before every feature (if configured).
-     * The database settings are defined in behat.yml
+     * Setup the environment before every feature:
+     *     - clear cache;
+     *     - setup database;
      *
      * @BeforeFeature
      */
     public static function setupEnvironment()
     {
+        self::clearCache();
+        self::setupDatabase();
+    }
+
+    /**
+     * Flush the memcached before every scenario (if configured).
+     * The memcache settings are defined in behat.yml
+     *
+     * @BeforeScenario
+     */
+    public static function clearCache()
+    {
         // clean the APC cache (if any)
         if (function_exists('apc_clear_cache')) {
             apc_clear_cache('user');
         }
-        
+
+        if (!empty(self::$parameters['memcached'])) {
+            $mmd = new \Memcached();
+            $mmd->addServer(self::$parameters['memcached']['host'], self::$parameters['memcached']['port']);
+            $mmd->flush();
+        }
+    }
+
+    /**
+     * Setup the database before every feature (if configured).
+     * The database settings are defined in behat.yml
+     */
+    public static function setupDatabase()
+    {
         if (empty(self::$parameters['db'])) {
             // no database defined
             return;
@@ -138,10 +164,18 @@ class BaseContext extends BehatContext
         $sql_queries = explode(";\r", trim($sql));
 
         // connect to the database
-        $dsn = self::$parameters['db']['driver']
-            .':dbname='.self::$parameters['db']['database']
-            .';host='.self::$parameters['db']['host']
-            .';port='.self::$parameters['db']['port'];
+        if (!empty(self::$parameters['db']['path'])) {
+            // filesystem-style databases (e.g. SQLite)
+            $dsn = self::$parameters['db']['driver']
+                .':'. __DIR__ . self::$parameters['db']['path'];
+            self::$parameters['db']['username'] = null;
+            self::$parameters['db']['password'] = null;
+        } else {
+            $dsn = self::$parameters['db']['driver']
+                .':dbname='.self::$parameters['db']['database']
+                .';host='.self::$parameters['db']['host']
+                .';port='.self::$parameters['db']['port'];
+        }
         $dbtest = new \PDO($dsn, self::$parameters['db']['username'], self::$parameters['db']['password']);
 
         // execute all queries
