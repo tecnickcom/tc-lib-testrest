@@ -17,7 +17,7 @@
 * **category**    Library
 * **package**     \Com\Tecnick\TestRest
 * **author**      Nicola Asuni <info@tecnick.com>
-* **copyright**   2015-2015 MediaSift Ltd. <http://datasift.com>
+* **copyright**   2015 MediaSift Ltd. <http://datasift.com>, 2016 Tecnick.com LTD <http://www.tecnick.com>
 * **license**     The MIT License (MIT) - see [LICENSE](LICENSE)
 * **link**        https://github.com/tecnickcom/tc-lib-testrest
 
@@ -65,13 +65,16 @@ make build_dev
 
 ### Running Tests
 
-The internal unit tests includes a database testing, so you need to create the following MySQL database with the right privileges:
+The internal unit tests includes a database testing, so you need to install MySQL and SQLite with PDO drivers.
+You also need to create the following MySQL database with the right privileges:
 
 ```sql
 CREATE DATABASE IF NOT EXISTS testrest_test;
 GRANT ALL ON testrest_test.* TO 'testrest'@'%' IDENTIFIED BY 'testrest';
 FLUSH PRIVILEGES;
 ```
+
+You also need to install APC and memcached to test all features.
 
 To execute all the tests you can now run `make qa_all`.
 

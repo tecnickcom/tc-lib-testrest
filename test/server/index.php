@@ -1,7 +1,7 @@
 <?php
 // @codingStandardsIgnoreFile
 /**
- * Test Server
+ * Test Server main example
  *
  * @category    Library
  * @package     Com\Tecnick\TestRest
