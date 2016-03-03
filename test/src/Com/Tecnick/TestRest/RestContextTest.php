@@ -5,7 +5,7 @@
  * @category    Library
  * @package     Com\Tecnick\TestRest
  * @author      Nicola Asuni <info@tecnick.com>
- * @copyright   2015-2015 MediaSift Ltd. <http://datasift.com>
+ * @copyright   2015 MediaSift Ltd. <http://datasift.com>, 2016 Tecnick.com LTD <http://www.tecnick.com>
  * @license     https://opensource.org/licenses/MIT The MIT License (MIT) - see the LICENSE file
  * @link        https://github.com/tecnickcom/tc-lib-testrest
  */
@@ -31,7 +31,11 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
                 'password'   => 'testrest',
                 'sql_schema' => '/../../../../test/resources/database/schema.sql',
                 'sql_data'   => '/../../../../test/resources/database/data.sql'
-            )
+            ),
+            'memcached' => array(
+                'host' => '127.0.0.1',
+                'port' => 11211
+            ),
         );
         $this->obj = new \Com\Tecnick\TestRest\RestContext($parameters);
         $this->mockClient();
@@ -99,6 +103,17 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
     {
         $json = new \Behat\Gherkin\Node\PyStringNode('{"hello":"world"}', 1);
         $this->obj->thatTheRequestBodyIsValidJson($json);
+    }
+
+    public function testTheResponseBodyIsEmpty()
+    {
+        $this->obj->theResponseBodyIsEmpty('not ');
+    }
+
+    public function testTheResponseBodyIsEmptyEx()
+    {
+        $this->setExpectedException('Exception');
+        $this->obj->theResponseBodyIsEmpty('');
     }
 
     public function testTheResponseBodyEquals()
