@@ -186,8 +186,7 @@ class BaseContext extends BehatContext
         // execute all queries
         $dbtest->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         foreach ($sql_queries as $query) {
-            if (!trim($query)) {
-                // ignore empty query
+            if (!trim($query, "; \t\n\r\0\x0B")) {
                 continue;
             }
             try {
