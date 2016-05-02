@@ -180,8 +180,8 @@ class BaseContext extends BehatContext
 
         // try to wrap queries
         $dbtest->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_SILENT);
-        $dbtest->query('BEGIN');
-        $dbtest->query('SET FOREIGN_KEY_CHECKS=0');
+        @$dbtest->query('BEGIN');
+        @$dbtest->query('SET FOREIGN_KEY_CHECKS=0');
 
         // execute all queries
         $dbtest->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -199,8 +199,8 @@ class BaseContext extends BehatContext
 
         // close query wrappers
         $dbtest->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_SILENT);
-        $dbtest->query('SET FOREIGN_KEY_CHECKS=1');
-        $dbtest->query('COMMIT');
+        @$dbtest->query('SET FOREIGN_KEY_CHECKS=1');
+        @$dbtest->query('COMMIT');
 
         $dbtest = null; // close the database connection
     }
