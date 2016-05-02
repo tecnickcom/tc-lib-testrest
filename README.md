@@ -6,7 +6,7 @@
 [![Master Coverage Status](https://coveralls.io/repos/tecnickcom/tc-lib-testrest/badge.svg?branch=master&service=github)](https://coveralls.io/github/tecnickcom/tc-lib-testrest?branch=master)
 [![License](https://poser.pugx.org/tecnickcom/tc-lib-testrest/license)](https://packagist.org/packages/tecnickcom/tc-lib-testrest)
 [![Total Downloads](https://poser.pugx.org/tecnickcom/tc-lib-testrest/downloads)](https://packagist.org/packages/tecnickcom/tc-lib-testrest)
-*
+
 [![Develop Branch](https://img.shields.io/badge/-develop:-gray.svg)](https://github.com/tecnickcom/tc-lib-testrest/tree/develop)
 [![Develop Build Status](https://secure.travis-ci.org/tecnickcom/tc-lib-testrest.png?branch=develop)](https://travis-ci.org/tecnickcom/tc-lib-testrest?branch=develop)
 [![Develop Coverage Status](https://coveralls.io/repos/tecnickcom/tc-lib-testrest/badge.svg?branch=develop&service=github)](https://coveralls.io/github/tecnickcom/tc-lib-testrest?branch=develop)
