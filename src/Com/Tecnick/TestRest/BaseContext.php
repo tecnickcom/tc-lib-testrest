@@ -193,7 +193,7 @@ class BaseContext extends BehatContext
             try {
                 $dbtest->query($query);
             } catch (Exception $exc) {
-                throw new Exception('Error executing th equery: '.$query.' -- '.$exc);
+                throw new Exception('Error executing the query: '.$query.' -- '.$exc);
             }
         }
 

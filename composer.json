@@ -4,7 +4,7 @@
     "type": "library",
     "homepage": "https://github.com/tecnickcom/tc-lib-testrest",
     "license": "MIT",
-    "keywords": ["ms-lib-testrest", "behat", "testing", "restful", "API", "datasift"],
+    "keywords": ["ms-lib-testrest", "testrest", "behat", "testing", "restful", "API", "datasift"],
     "authors": [
         {
             "name": "Nicola Asuni",

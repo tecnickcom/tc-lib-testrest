@@ -87,4 +87,13 @@ class BaseContextTest extends \PHPUnit_Framework_TestCase
         $obj = new \Com\Tecnick\TestRest\BaseContext(array());
         $obj::setupEnvironment();
     }
+
+    public function testErrorSetupEnvironment()
+    {
+        $mysqlerr = self::$mysqlparams;
+        $mysqlerr['db']['sql_schema'] = '/../../../../test/resources/database/schemaerror.sql';
+        $obj = new \Com\Tecnick\TestRest\BaseContext($mysqlerr);
+        $this->setExpectedException('Exception');
+        $obj::setupEnvironment();
+    }
 }
