@@ -178,12 +178,29 @@ class BaseContext extends BehatContext
         }
         $dbtest = new \PDO($dsn, self::$parameters['db']['username'], self::$parameters['db']['password']);
 
+        // try to wrap queries
+        $dbtest->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_SILENT);
+        $dbtest->query('BEGIN');
+        $dbtest->query('SET FOREIGN_KEY_CHECKS=0');
+
         // execute all queries
-        @$dbtest->query('SET FOREIGN_KEY_CHECKS=0');
+        $dbtest->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         foreach ($sql_queries as $query) {
-            $dbtest->query($query);
+            if (!trim($query)) {
+                // ignore empty query
+                continue;
+            }
+            try {
+                $dbtest->query($query);
+            } catch (Exception $exc) {
+                throw new Exception('Error executing th equery: '.$query.' -- '.$exc);
+            }
         }
-        @$dbtest->query('SET FOREIGN_KEY_CHECKS=1');
+
+        // close query wrappers
+        $dbtest->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_SILENT);
+        $dbtest->query('SET FOREIGN_KEY_CHECKS=1');
+        $dbtest->query('COMMIT');
 
         $dbtest = null; // close the database connection
     }
