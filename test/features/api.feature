@@ -33,7 +33,7 @@ Scenario: Simple test that show most options
     When I make a "GET" request to "/"
     Then echo last response
     Then wait "1" second
-    Then the response status code should be "200"
+    Then the response status code matches the pattern "/^20[0-9]$/"
     And the response body is not empty
     And the "Connection" header property equals "close"
     And the value of the "Connection" header property matches the pattern "/^[a-z]+$/"

@@ -21,7 +21,7 @@ use \Behat\Gherkin\Node\PyStringNode;
  * @category    Library
  * @package     Com\Tecnick\TestRest
  * @author      Nicola Asuni <info@tecnick.com>
- * @copyright   2015-2015 MediaSift Ltd. <http://datasift.com>
+ * @copyright   2015-2015 MediaSift Ltd. <http://datasift.com>, 2016 Tecnick.com LTD <http://www.tecnick.com>
  * @license     https://opensource.org/licenses/MIT The MIT License (MIT) - see the LICENSE file
  * @link        https://github.com/tecnickcom/tc-lib-testrest
  */
@@ -43,6 +43,28 @@ class HeaderContext extends \Com\Tecnick\TestRest\InputContext
             throw new Exception(
                 'HTTP code does not match '.$httpStatus.
                 ' (actual: '.$this->response->getStatusCode().')'
+            );
+        }
+    }
+
+    /**
+     * Check if the value of the http status code matches the defined regular expression pattern
+     *
+     * Example:
+     *     Then the response status code matches the pattern "/^20[0-9]$/"
+     *
+     * @param string $pattern Regular expression pattern to match
+     *
+     * @Then /^the response status code matches the pattern "([^\n]*)"$/
+     */
+    public function theResponseStatusCodeMatchesThePattern($pattern)
+    {
+        $value = $this->response->getStatusCode();
+        $result = preg_match($pattern, $value);
+        if (empty($result)) {
+            throw new Exception(
+                'The value of HTTP status code is \''.$value
+                .'\' and does not matches the pattern \''.$pattern.'\'!'."\n"
             );
         }
     }
@@ -74,7 +96,7 @@ class HeaderContext extends \Com\Tecnick\TestRest\InputContext
      * Check if the value of the specified header property matches the defined regular expression pattern
      *
      * Example:
-     *     Then the value of the "Location" header property matches the pattern "^\/api\/[1-9][0-9]*$"
+     *     Then the value of the "Location" header property matches the pattern "/^\/api\/[1-9][0-9]*$/"
      *
      * @param string $propertyName Name of the header property to check.
      * @param string $pattern      Regular expression pattern to match

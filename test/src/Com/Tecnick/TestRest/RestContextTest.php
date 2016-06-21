@@ -420,6 +420,17 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
         $this->obj->theResponseStatusCodeShouldBe(0);
     }
 
+    public function testTheResponseStatusCodeMatchesThePattern()
+    {
+        $this->obj->theResponseStatusCodeMatchesThePattern('/^20[0-9]$/');
+    }
+
+    public function testTheResponseStatusCodeMatchesThePatternException()
+    {
+        $this->setExpectedException('Exception');
+        $this->obj->theResponseStatusCodeMatchesThePattern('/300/');
+    }
+
     public function testWaitSeconds()
     {
         $start = microtime(true);
