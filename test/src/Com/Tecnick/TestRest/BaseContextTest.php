@@ -5,14 +5,16 @@
  * @category    Library
  * @package     Com\Tecnick\TestRest
  * @author      Nicola Asuni <info@tecnick.com>
- * @copyright   2015 MediaSift Ltd. <http://datasift.com>, 2016 Tecnick.com LTD <http://www.tecnick.com>
+ * @copyright   2015 MediaSift Ltd. <http://datasift.com>, 2016-2017 Tecnick.com LTD <http://www.tecnick.com>
  * @license     https://opensource.org/licenses/MIT The MIT License (MIT) - see the LICENSE file
  * @link        https://github.com/tecnickcom/tc-lib-testrest
  */
 
 namespace Test;
 
-class BaseContextTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class BaseContextTest extends TestCase
 {
     protected static $mysqlparams = array(
         'alpha'    => 'beta',
@@ -66,13 +68,12 @@ class BaseContextTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(8, $obj->getParameter('db'));
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testGetParameterMissing()
     {
         $obj = new \Com\Tecnick\TestRest\BaseContext(array());
-        $this->setExpectedException(
-            'Exception',
-            'Context Parameters not loaded!'
-        );
         $obj->getParameter('missing');
     }
 
@@ -86,14 +87,18 @@ class BaseContextTest extends \PHPUnit_Framework_TestCase
 
         $obj = new \Com\Tecnick\TestRest\BaseContext(array());
         $obj::setupEnvironment();
+
+        $this->assertNotNull($obj);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testErrorSetupEnvironment()
     {
         $mysqlerr = self::$mysqlparams;
         $mysqlerr['db']['sql_schema'] = '/../../../../test/resources/database/schemaerror.sql';
         $obj = new \Com\Tecnick\TestRest\BaseContext($mysqlerr);
-        $this->setExpectedException('Exception');
         $obj::setupEnvironment();
     }
 }

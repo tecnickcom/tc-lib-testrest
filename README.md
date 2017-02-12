@@ -17,7 +17,7 @@
 * **category**    Library
 * **package**     \Com\Tecnick\TestRest
 * **author**      Nicola Asuni <info@tecnick.com>
-* **copyright**   2015 MediaSift Ltd. <http://datasift.com>, 2016 Tecnick.com LTD <http://www.tecnick.com>
+* **copyright**   2015 MediaSift Ltd. <http://datasift.com>, 2016-2017 Tecnick.com LTD <http://www.tecnick.com>
 * **license**     The MIT License (MIT) - see [LICENSE](LICENSE)
 * **link**        https://github.com/tecnickcom/tc-lib-testrest
 

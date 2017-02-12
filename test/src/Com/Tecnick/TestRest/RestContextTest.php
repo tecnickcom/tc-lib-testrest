@@ -5,14 +5,16 @@
  * @category    Library
  * @package     Com\Tecnick\TestRest
  * @author      Nicola Asuni <info@tecnick.com>
- * @copyright   2015 MediaSift Ltd. <http://datasift.com>, 2016 Tecnick.com LTD <http://www.tecnick.com>
+ * @copyright   2015 MediaSift Ltd. <http://datasift.com>, 2016-2017 Tecnick.com LTD <http://www.tecnick.com>
  * @license     https://opensource.org/licenses/MIT The MIT License (MIT) - see the LICENSE file
  * @link        https://github.com/tecnickcom/tc-lib-testrest
  */
 
 namespace Test;
 
-class RestContextTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class RestContextTest extends TestCase
 {
     protected $obj = null;
 
@@ -90,6 +92,7 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
     {
         $this->obj->thatHeaderPropertyIs('alpha', 'null');
         $this->obj->thatHeaderPropertyIs('beta', '123');
+        $this->assertNotNull($this->obj);
     }
 
     public function testThatPropertyIs()
@@ -97,22 +100,27 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
         $this->obj->thatPropertyIs('alpha', 'null');
         $this->obj->thatPropertyIs('beta', 'gamma');
         $this->obj->thatPropertyIs('one[3].two', '1.23');
+        $this->assertNotNull($this->obj);
     }
 
     public function testThatTheBodyIsValidJson()
     {
         $json = new \Behat\Gherkin\Node\PyStringNode('{"hello":"world"}', 1);
         $this->obj->thatTheRequestBodyIsValidJson($json);
+        $this->assertNotNull($this->obj);
     }
 
     public function testTheResponseBodyIsEmpty()
     {
         $this->obj->theResponseBodyIsEmpty('not ');
+        $this->assertNotNull($this->obj);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testTheResponseBodyIsEmptyEx()
     {
-        $this->setExpectedException('Exception');
         $this->obj->theResponseBodyIsEmpty('');
     }
 
@@ -123,11 +131,14 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
             1
         );
         $this->obj->theResponseBodyEquals($json);
+        $this->assertNotNull($this->obj);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testTheResponseBodyEqualsEx()
     {
-        $this->setExpectedException('Exception');
         $json = new \Behat\Gherkin\Node\PyStringNode('{"hello":"world"}', 1);
         $this->obj->theResponseBodyEquals($json);
     }
@@ -135,17 +146,22 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
     public function testTheResponseBodyMatchesThePattern()
     {
         $this->obj->theResponseBodyMatchesThePattern('/fox[a-z]{4}/');
+        $this->assertNotNull($this->obj);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testTheResponseBodyMatchesThePatternEx()
     {
-        $this->setExpectedException('Exception');
         $this->obj->theResponseBodyMatchesThePattern('/[~]{10}/');
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testThatTheBodyIsValidJsonEx()
     {
-        $this->setExpectedException('Exception');
         $json = new \Behat\Gherkin\Node\PyStringNode('{"hello":"world', 1);
         $this->obj->thatTheRequestBodyIsValidJson($json);
     }
@@ -154,17 +170,21 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
     {
         $json = new \Behat\Gherkin\Node\PyStringNode('{"hello":"world"}', 1);
         $this->obj->thatThePropertiesInThe('JSON', $json);
+        $this->assertNotNull($this->obj);
     }
 
     public function testThatThePropertiesInTheTable()
     {
         $table = new \Behat\Gherkin\Node\TableNode("|property|value|\n|alpha|beta|\n|gamma|delta|");
         $this->obj->thatThePropertiesInThe('TABLE', $table);
+        $this->assertNotNull($this->obj);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testThatThePropertiesInTheEx()
     {
-        $this->setExpectedException('Exception');
         $this->obj->thatThePropertiesInThe('ERROR', '');
     }
 
@@ -172,17 +192,21 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
     {
         $json = new \Behat\Gherkin\Node\PyStringNode('{"hello":"world"}', 1);
         $this->obj->thatTheRequestBodyIs($json);
+        $this->assertNotNull($this->obj);
     }
 
     public function testthatThePropertiesAreImportedFromTheJsonFile()
     {
         $file = 'test/resources/data.json';
         $this->obj->thatThePropertiesAreImportedFromTheJsonFile($file);
+        $this->assertNotNull($this->obj);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testthatThePropertiesAreImportedFromTheJsonFileException()
     {
-        $this->setExpectedException('Exception');
         $file = 'test/resources/error.json';
         $this->obj->thatThePropertiesAreImportedFromTheJsonFile($file);
     }
@@ -191,11 +215,14 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
     {
         $file = 'test/resources/data.json';
         $this->obj->thatTheRequestBodyIsImportedFromTheFile($file);
+        $this->assertNotNull($this->obj);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testthatTheRequestBodyIsImportedFromTheFileException()
     {
-        $this->setExpectedException('Exception');
         $file = 'test/resources/error.json';
         $this->obj->thatTheRequestBodyIsImportedFromTheFile($file);
     }
@@ -204,24 +231,29 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
     {
         $this->obj->thatPropertyIs('var', 'value');
         $this->obj->iRequest('get', '/');
+        $this->assertNotNull($this->obj);
     }
 
     public function testIRequestAppend()
     {
         $this->obj->thatPropertyIs('var', 'value');
         $this->obj->iRequest('get', '/?a=b');
+        $this->assertNotNull($this->obj);
     }
 
     public function testIRequestPost()
     {
         $this->obj->thatHeaderPropertyIs('beta', '1234');
         $this->obj->iRequest('post', '/');
+        $this->assertNotNull($this->obj);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testIRequestGetException()
     {
         $this->setPropertyValue('client', new \Guzzle\Service\Client());
-        $this->setExpectedException('Exception');
         $this->obj->iRequest('get', '/');
     }
 
@@ -229,25 +261,36 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
     {
         $this->obj->theHeaderPropertyEquals('User-Agent', 'test');
         $this->obj->theHeaderPropertyEquals('missing', 'null');
+        $this->assertNotNull($this->obj);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testTheHeaderPropertyEqualsEx()
     {
-        $this->setExpectedException('Exception');
         $this->obj->theHeaderPropertyEquals('User-Agent', 'wrong');
     }
 
     public function testTheValueOfTheHeaderPropertyMatchesThePattern()
     {
         $this->obj->theValueOfTheHeaderPropertyMatchesThePattern('Location', '/^[a-z]{5}$/');
+        $this->assertNotNull($this->obj);
+    }
 
-        $this->setExpectedException('Exception');
+    /**
+     * @expectedException \Exception
+     */
+    public function testTheValueOfTheHeaderPropertyMatchesThePatternEx()
+    {
         $this->obj->theValueOfTheHeaderPropertyMatchesThePattern('Location', '/^[0-9]+$/');
     }
 
-    public function testTheValueOfTheHeaderPropertyMatchesThePatternEx()
+    /**
+     * @expectedException \Exception
+     */
+    public function testTheValueOfTheHeaderPropertyMatchesThePatternEx2()
     {
-        $this->setExpectedException('Exception');
         $this->obj->theValueOfTheHeaderPropertyMatchesThePattern('missing', '/aaaa/');
     }
 
@@ -264,9 +307,11 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testGetResponseDataException()
     {
-        $this->setExpectedException('Exception');
         $mockResponse = new \Guzzle\Http\Message\Response(200);
         $mockResponse->setBody('simple text', 'application/text');
         $this->setPropertyValue('response', $mockResponse);
@@ -280,11 +325,14 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
             1
         );
         $this->obj->theResponseBodyContainsTheJsonData($json);
+        $this->assertNotNull($this->obj);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testTheResponseBodyContainsTheJsonDataEx()
     {
-        $this->setExpectedException('Exception');
         $json = new \Behat\Gherkin\Node\PyStringNode(
             '{"hello":"world","0":[{"alpha":null},{"gamma":3}],"1":{"\"quote\"":false,"missing":true}}',
             1
@@ -299,11 +347,14 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
             1
         );
         $this->obj->theResponseBodyJsonEquals($json);
+        $this->assertNotNull($this->obj);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testTheResponseBodyJsonEqualsEx()
     {
-        $this->setExpectedException('Exception');
         $json = new \Behat\Gherkin\Node\PyStringNode(
             '{"hello":"world","0":[{"alpha":null},{"gamma":3}],"1":{"echo":"foxtrot"}}',
             1
@@ -324,9 +375,14 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
 
         $data = $this->obj->getObjectValue('1.quote');
         $this->assertTrue($data);
+    }
 
-        $this->setExpectedException('Exception');
-        $data = $this->obj->getObjectValue('0[1].error');
+    /**
+     * @expectedException \Exception
+     */
+    public function testGetObjectValueEx()
+    {
+        $this->obj->getObjectValue('0[1].error');
     }
 
     public function testThePropertyEquals()
@@ -337,23 +393,30 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
         $this->obj->thePropertyEquals('1.quote', 'true');
         $this->obj->thePropertyEquals('null', 'null');
         $this->obj->thePropertyEquals('0', '[{"alpha":null},{"gamma":3}]');
+        $this->assertNotNull($this->obj);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testThePropertyEqualsEx1()
     {
-        $this->setExpectedException('Exception');
         $this->obj->thePropertyEquals('something', 'missing');
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testThePropertyEqualsEx2()
     {
-        $this->setExpectedException('Exception');
         $this->obj->thePropertyEquals('0', '[{"alpha":"b"},{"gamma":3}]');
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testThePropertyEqualsEx3()
     {
-        $this->setExpectedException('Exception');
         $this->obj->thePropertyEquals('hello', 'wrong');
     }
 
@@ -362,17 +425,22 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
         $this->obj->thePropertyIsAnWithItems('0', 'array', 2);
         $this->obj->thePropertyIsAnWithItems('1', 'object', 2);
         $this->obj->thePropertyIsAnWithItems('missing', 'array', 'null');
+        $this->assertNotNull($this->obj);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testThePropertyIsAnWithItemsEx1()
     {
-        $this->setExpectedException('Exception');
         $this->obj->thePropertyIsAnWithItems('0', 'array', 3);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testThePropertyIsAnWithItemsEx2()
     {
-        $this->setExpectedException('Exception');
         $this->obj->thePropertyIsAnWithItems('missing', 'array', 'error');
     }
 
@@ -382,52 +450,78 @@ class RestContextTest extends \PHPUnit_Framework_TestCase
         $this->obj->theTypeOfThePropertyShouldBe('0', 'array');
         $this->obj->theTypeOfThePropertyShouldBe('1', 'object');
         $this->obj->theTypeOfThePropertyShouldBe('0[1].gamma', 'integer');
+        $this->assertNotNull($this->obj);
+    }
 
-        $this->setExpectedException('Exception');
+    /**
+     * @expectedException \Exception
+     */
+    public function testTheTypeOfThePropertyShouldBeEx()
+    {
         $this->obj->theTypeOfThePropertyShouldBe('1', 'string');
     }
 
     public function testTheLengthOfThePropertyShouldBe()
     {
         $this->obj->theLengthOfThePropertyShouldBe('hello', 5);
+        $this->assertNotNull($this->obj);
+    }
 
-        $this->setExpectedException('Exception');
+    /**
+     * @expectedException \Exception
+     */
+    public function testTheLengthOfThePropertyShouldBeEx()
+    {
         $this->obj->theLengthOfThePropertyShouldBe('hello', 6);
     }
 
     public function testTheValueOfThePropertyMatchesThePattern()
     {
         $this->obj->theValueOfThePropertyMatchesThePattern('hello', '/^[a-z]{5}$/');
+        $this->assertNotNull($this->obj);
+    }
 
-        $this->setExpectedException('Exception');
+    /**
+     * @expectedException \Exception
+     */
+    public function testTheValueOfThePropertyMatchesThePatternEx()
+    {
         $this->obj->theValueOfThePropertyMatchesThePattern('hello', '/^[0-9]+$/');
     }
 
-    public function testTheValueOfThePropertyMatchesThePatternEx()
+    /**
+     * @expectedException \Exception
+     */
+    public function testTheValueOfThePropertyMatchesThePatternEx2()
     {
-        $this->setExpectedException('Exception');
         $this->obj->theValueOfThePropertyMatchesThePattern(-1, -0);
     }
 
     public function testTheResponseStatusCodeShouldBe()
     {
         $this->obj->theResponseStatusCodeShouldBe(200);
+        $this->assertNotNull($this->obj);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testTheResponseStatusCodeShouldBeException()
     {
-        $this->setExpectedException('Exception');
         $this->obj->theResponseStatusCodeShouldBe(0);
     }
 
     public function testTheResponseStatusCodeMatchesThePattern()
     {
         $this->obj->theResponseStatusCodeMatchesThePattern('/^20[0-9]$/');
+        $this->assertNotNull($this->obj);
     }
 
+    /**
+     * @expectedException \Exception
+     */
     public function testTheResponseStatusCodeMatchesThePatternException()
     {
-        $this->setExpectedException('Exception');
         $this->obj->theResponseStatusCodeMatchesThePattern('/300/');
     }
 
