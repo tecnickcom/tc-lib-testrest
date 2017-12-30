@@ -54,7 +54,7 @@ before_script:
   - mysql -uroot -e 'GRANT ALL ON testrest_test.* TO '\''testrest'\''@'\''%'\'' IDENTIFIED BY '\''testrest'\'';'
   - mysql -uroot -e 'FLUSH PRIVILEGES;'
   - composer install --no-interaction
-  - if [ "$TRAVIS_PHP_VERSION" = "7.0" ]; then composer require satooshi/php-coveralls:dev-master --no-interaction; fi
+  - if [ "$TRAVIS_PHP_VERSION" = "7.0" ]; then composer require php-coveralls/php-coveralls --no-interaction; fi
 
 script:
   - make qa_all
@@ -69,4 +69,4 @@ after_success:
   - cat ./target/report/phpcompatinfo.txt
   - "echo 'coverage_clover: target/coverage/coverage.xml' >> .coveralls.yml"
   - "echo 'json_path: target/coverage/coveralls-upload.json' >> .coveralls.yml"
-  - if [ "$TRAVIS_PHP_VERSION" = "7.0" ]; then php vendor/bin/coveralls -v; fi;
+  - if [ "$TRAVIS_PHP_VERSION" = "7.0" ]; then php vendor/php-coveralls/php-coveralls/bin/php-coveralls -v; fi;
