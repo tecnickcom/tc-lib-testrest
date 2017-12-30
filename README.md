@@ -35,16 +35,17 @@ This project requires PHP 5.4.0+ to use the PHP built-in web server.
 ```json
 {
     "require-dev": {
-        "tecnickcom/tc-lib-testrest": "dev-master"
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/tecnickcom/tc-lib-testrest.git"
-        }
-    ]
+        "tecnickcom/tc-lib-testrest": "^2.10"
+    }
 }
 ```
+
+Or add to an existing project with: 
+
+```bash
+composer require tecnickcom/tc-lib-testrest ^2.10
+```
+
 * Create a behat.yml file in the root directory of your project like the one in test/behat.yml and check the internal comments and options.
 * Create a test/features folder in your project like the one in test/features and write your own ".feature" files like the provided example.
 * Create (or update) a makefile like the one in this project which contains the "btest" target. This target starts the PHP built-in server and execute the Behat tests.
